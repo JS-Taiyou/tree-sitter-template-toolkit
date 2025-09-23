@@ -1,4 +1,4 @@
-module github.com/tree-sitter/tree-sitter-template_toolkit
+module github.com/JS-Taiyou/tree-sitter-template-toolkit
 
 go 1.22
 

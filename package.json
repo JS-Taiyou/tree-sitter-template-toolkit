@@ -2,7 +2,7 @@
   "name": "tree-sitter-template-toolkit",
   "version": "0.1.0",
   "description": "TemplateToolkit grammar for tree-sitter",
-  "repository": "https://github.com/tree-sitter/tree-sitter-template_toolkit",
+  "repository": "https://github.com/JS-Taiyou/tree-sitter-template-toolkit",
   "license": "MIT",
   "author": {
     "name": "Jorge Solis",
