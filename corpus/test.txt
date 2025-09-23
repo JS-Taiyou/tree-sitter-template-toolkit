@@ -1,0 +1,14 @@
+==================
+Basic Test
+==================
+<p>Hello</p>
+[%# This is a comment %]
+[% user.name %]
+
+---
+(source_file
+  (content)
+  (directive (comment))
+  (content)
+  (directive (variable (identifier) (dot) (identifier)))
+  (content))
