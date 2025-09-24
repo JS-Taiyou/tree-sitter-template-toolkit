@@ -17,10 +17,6 @@
           "named": true
         },
         {
-          "type": "assignment_expression",
-          "named": true
-        },
-        {
           "type": "bare_string",
           "named": true
         },
@@ -60,10 +56,6 @@
             "named": true
           },
           {
-            "type": "assignment_expression",
-            "named": true
-          },
-          {
             "type": "bare_string",
             "named": true
           },
@@ -98,7 +90,11 @@
             "named": true
           },
           {
-            "type": "logical_operator",
+            "type": "logical_op_high",
+            "named": true
+          },
+          {
+            "type": "logical_op_low",
             "named": true
           }
         ]
@@ -109,10 +105,6 @@
         "types": [
           {
             "type": "array",
-            "named": true
-          },
-          {
-            "type": "assignment_expression",
             "named": true
           },
           {
@@ -144,6 +136,128 @@
     }
   },
   {
+    "type": "command_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "bare_string",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "filter_expression",
+          "named": true
+        },
+        {
+          "type": "hash",
+          "named": true
+        },
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "comparison_operator",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "conditional_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "conditional_start_directive",
+          "named": true
+        },
+        {
+          "type": "content",
+          "named": true
+        },
+        {
+          "type": "directive",
+          "named": true
+        },
+        {
+          "type": "else_directive",
+          "named": true
+        },
+        {
+          "type": "elsif_directive",
+          "named": true
+        },
+        {
+          "type": "end_directive",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "conditional_start_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "bare_string",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "filter_expression",
+          "named": true
+        },
+        {
+          "type": "hash",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "content",
     "named": true,
     "fields": {}
@@ -157,7 +271,7 @@
       "required": true,
       "types": [
         {
-          "type": "if_block",
+          "type": "conditional_block",
           "named": true
         },
         {
@@ -182,10 +296,6 @@
       "types": [
         {
           "type": "array",
-          "named": true
-        },
-        {
-          "type": "assignment_expression",
           "named": true
         },
         {
@@ -229,70 +339,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "variable",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "hash",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "if_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "content",
-          "named": true
-        },
-        {
-          "type": "directive",
-          "named": true
-        },
-        {
-          "type": "else_directive",
-          "named": true
-        },
-        {
-          "type": "elsif_directive",
-          "named": true
-        },
-        {
-          "type": "end_directive",
-          "named": true
-        },
-        {
-          "type": "if_directive",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "if_directive",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
           "type": "array",
-          "named": true
-        },
-        {
-          "type": "assignment_expression",
           "named": true
         },
         {
@@ -312,6 +359,10 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         },
@@ -321,6 +372,26 @@
         }
       ]
     }
+  },
+  {
+    "type": "hash",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "keyword",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "logical_op_high",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "logical_op_low",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "simple_directive",
@@ -344,6 +415,10 @@
         },
         {
           "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "command_expression",
           "named": true
         },
         {
@@ -406,7 +481,15 @@
     }
   },
   {
+    "type": "!=",
+    "named": false
+  },
+  {
     "type": "%]",
+    "named": false
+  },
+  {
+    "type": "&&",
     "named": false
   },
   {
@@ -418,7 +501,31 @@
     "named": false
   },
   {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": "<=",
+    "named": false
+  },
+  {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": "==",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": ">=",
+    "named": false
+  },
+  {
+    "type": "CALL",
     "named": false
   },
   {
@@ -434,7 +541,31 @@
     "named": false
   },
   {
+    "type": "GET",
+    "named": false
+  },
+  {
     "type": "IF",
+    "named": false
+  },
+  {
+    "type": "INCLUDE",
+    "named": false
+  },
+  {
+    "type": "NEXT",
+    "named": false
+  },
+  {
+    "type": "SET",
+    "named": false
+  },
+  {
+    "type": "UNLESS",
+    "named": false
+  },
+  {
+    "type": "USE",
     "named": false
   },
   {
@@ -450,6 +581,10 @@
     "named": false
   },
   {
+    "type": "and",
+    "named": false
+  },
+  {
     "type": "bare_string",
     "named": true
   },
@@ -459,16 +594,12 @@
     "extra": true
   },
   {
-    "type": "comparison_operator",
-    "named": true
-  },
-  {
     "type": "identifier",
     "named": true
   },
   {
-    "type": "logical_operator",
-    "named": true
+    "type": "or",
+    "named": false
   },
   {
     "type": "{",
@@ -476,6 +607,10 @@
   },
   {
     "type": "|",
+    "named": false
+  },
+  {
+    "type": "||",
     "named": false
   },
   {

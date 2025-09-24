@@ -1,16 +1,32 @@
 ====================
-IF Statement
+UNLESS Block
 ====================
-[% IF followup.type == 'MOVEMENTS'; END %]
+[% UNLESS user.is_active %]
+  <p>Inactive</p>
+[% END %]
 
 ---
 (source_file
-  (directive
-    (if_statement
+  (conditional_block
+    (conditional_start_directive (variable (identifier) (dot) (identifier)))
+    (content)
+    (end_directive)))
+
+====================
+Complex Expression
+====================
+[% IF user.type == 'admin' and user.id > 100 %]
+
+---
+(source_file
+  (simple_directive
+    (binary_expression
       (binary_expression
         (variable (identifier) (dot) (identifier))
         (comparison_operator)
         (string))
-    )
-  )
-)
+      (logical_op_high)
+      (binary_expression
+        (variable (identifier) (dot) (identifier))
+        (comparison_operator)
+        (bare_string)))))
