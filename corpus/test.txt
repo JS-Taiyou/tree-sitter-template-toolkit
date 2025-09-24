@@ -4,17 +4,6 @@ Filter Expression
 [% user.name | html %]
 [% user.lastname | LOWER %]
 [% block_item = BLOCK %]
-				<li class="material-list__item material-list__item--auto-height">
-					<i class="fas fa-tags text-dark material-list__icon"></i>
-					<span class="material-list__text">
-						<span class="material-list__text--primary">
-							[% lang.t('tags') %]
-						</span>
-					</span>
-				</li>
-				[% END %]
-				[% link3.load({ display => '', auth => 'a', module => 'tags',
-				method              => 'default', html => block_item}) %]
 
 ---
 (source_file
