@@ -13,7 +13,15 @@
       "required": true,
       "types": [
         {
+          "type": "bare_string",
+          "named": true
+        },
+        {
           "type": "comment",
+          "named": true
+        },
+        {
+          "type": "filter_expression",
           "named": true
         },
         {
@@ -26,6 +34,29 @@
         },
         {
           "type": "tag_start",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "filter_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "pipe",
           "named": true
         },
         {
@@ -80,6 +111,10 @@
     }
   },
   {
+    "type": "BLOCK",
+    "named": false
+  },
+  {
     "type": "CALL",
     "named": false
   },
@@ -89,6 +124,10 @@
   },
   {
     "type": "END",
+    "named": false
+  },
+  {
+    "type": "FILTER",
     "named": false
   },
   {
@@ -104,6 +143,14 @@
     "named": false
   },
   {
+    "type": "INCLUDE",
+    "named": false
+  },
+  {
+    "type": "PROCESS",
+    "named": false
+  },
+  {
     "type": "SET",
     "named": false
   },
@@ -112,8 +159,16 @@
     "named": false
   },
   {
+    "type": "USE",
+    "named": false
+  },
+  {
     "type": "WHILE",
     "named": false
+  },
+  {
+    "type": "bare_string",
+    "named": true
   },
   {
     "type": "comment",
@@ -125,6 +180,10 @@
   },
   {
     "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "pipe",
     "named": true
   },
   {

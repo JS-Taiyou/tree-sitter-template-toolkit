@@ -12,24 +12,39 @@ module.exports = grammar({
   rules: {
     source_file: ($) => repeat(choice($.content, $.directive)),
 
-    // --- THIS IS THE CORRECTED RULE ---
-    // It now defines content as either:
-    // 1. A sequence of characters that are NOT '['.
-    // 2. A single, literal '[' character.
-    content: ($) =>
-      choice(
-        /[^\[]+/, // Matches 'foo ' and ' bar'
-        /\[/, // Matches the lone '[' in 'foo [ bar'
-      ),
+    content: ($) => choice(/[^\[]+/, /\[/),
 
-    directive: ($) => seq($.tag_start, optional($._statement), $.tag_end),
+    directive: ($) =>
+      seq($.tag_start, optional(choice($._statement, $.comment)), $.tag_end),
 
     tag_start: ($) => "[%",
     tag_end: ($) => "%]",
 
-    _statement: ($) => choice($.comment, $.keyword, $.variable),
-
     comment: ($) => /#.*/,
+
+    // --- RULE MODIFIED ---
+    // A statement can now also be a filter expression.
+    // NOTE: `filter_expression` must come BEFORE `variable` in the choice,
+    // because a filter_expression starts with a variable. This tells the
+    // parser to try matching the longer, more specific rule first.
+    _statement: ($) =>
+      repeat1(
+        choice(
+          $.filter_expression, // <-- Added this
+          $.keyword,
+          $.variable,
+          $.bare_string,
+        ),
+      ),
+
+    // --- NEW RULE ---
+    // Defines the structure of `variable | filter`
+    filter_expression: ($) =>
+      seq(
+        $.variable,
+        $.pipe,
+        $.identifier, // The filter name, e.g., 'html'
+      ),
 
     keyword: ($) =>
       choice(
@@ -42,11 +57,18 @@ module.exports = grammar({
         "GET",
         "CALL",
         "SET",
+        "INCLUDE",
+        "USE",
+        "FILTER",
+        "PROCESS",
+        "BLOCK",
       ),
 
     variable: ($) => seq($.identifier, repeat(seq($.dot, $.identifier))),
 
     identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
     dot: ($) => ".",
+    bare_string: ($) => /[a-zA-Z0-9_.\/]+/,
+    pipe: ($) => "|",
   },
 });

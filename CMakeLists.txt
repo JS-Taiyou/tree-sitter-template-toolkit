@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 project(tree-sitter-template-toolkit
-        VERSION "0.1.0"
+        VERSION "0.1.1"
         DESCRIPTION "TemplateToolkit grammar for tree-sitter"
         HOMEPAGE_URL "https://github.com/JS-Taiyou/tree-sitter-template-toolkit"
         LANGUAGES C)

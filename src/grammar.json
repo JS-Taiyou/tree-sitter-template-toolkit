@@ -42,8 +42,17 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "_statement"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_statement"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "comment"
+                }
+              ]
             },
             {
               "type": "BLANK"
@@ -64,26 +73,50 @@
       "type": "STRING",
       "value": "%]"
     },
-    "_statement": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "comment"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "variable"
-        }
-      ]
-    },
     "comment": {
       "type": "PATTERN",
       "value": "#.*"
+    },
+    "_statement": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "filter_expression"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "keyword"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "variable"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "bare_string"
+          }
+        ]
+      }
+    },
+    "filter_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "variable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pipe"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
     },
     "keyword": {
       "type": "CHOICE",
@@ -123,6 +156,26 @@
         {
           "type": "STRING",
           "value": "SET"
+        },
+        {
+          "type": "STRING",
+          "value": "INCLUDE"
+        },
+        {
+          "type": "STRING",
+          "value": "USE"
+        },
+        {
+          "type": "STRING",
+          "value": "FILTER"
+        },
+        {
+          "type": "STRING",
+          "value": "PROCESS"
+        },
+        {
+          "type": "STRING",
+          "value": "BLOCK"
         }
       ]
     },
@@ -158,6 +211,14 @@
     "dot": {
       "type": "STRING",
       "value": "."
+    },
+    "bare_string": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z0-9_.\\/]+"
+    },
+    "pipe": {
+      "type": "STRING",
+      "value": "|"
     }
   },
   "extras": [
