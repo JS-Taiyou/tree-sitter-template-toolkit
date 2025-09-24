@@ -1,14 +1,16 @@
-==================
-Filter Expression
-==================
-[% user.name | html %]
-[% user.lastname | LOWER %]
-[% block_item = BLOCK %]
+====================
+IF Statement
+====================
+[% IF followup.type == 'MOVEMENTS'; END %]
 
 ---
 (source_file
   (directive
-    (filter_expression
-      (variable (identifier) (dot) (identifier))
-      (pipe)
-      (identifier))))
+    (if_statement
+      (binary_expression
+        (variable (identifier) (dot) (identifier))
+        (comparison_operator)
+        (string))
+    )
+  )
+)
