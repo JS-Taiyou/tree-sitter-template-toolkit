@@ -1,5 +1,37 @@
 [
   {
+    "type": "array",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "assignment_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "assignment_operator",
+          "named": true
+        },
+        {
+          "type": "hash",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "content",
     "named": true,
     "fields": {}
@@ -12,6 +44,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "assignment_expression",
+          "named": true
+        },
         {
           "type": "bare_string",
           "named": true
@@ -67,6 +103,11 @@
     }
   },
   {
+    "type": "hash",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "keyword",
     "named": true,
     "fields": {}
@@ -111,10 +152,6 @@
     }
   },
   {
-    "type": "BLOCK",
-    "named": false
-  },
-  {
     "type": "CALL",
     "named": false
   },
@@ -124,10 +161,6 @@
   },
   {
     "type": "END",
-    "named": false
-  },
-  {
-    "type": "FILTER",
     "named": false
   },
   {
@@ -147,10 +180,6 @@
     "named": false
   },
   {
-    "type": "PROCESS",
-    "named": false
-  },
-  {
     "type": "SET",
     "named": false
   },
@@ -159,12 +188,20 @@
     "named": false
   },
   {
-    "type": "USE",
+    "type": "WHILE",
     "named": false
   },
   {
-    "type": "WHILE",
+    "type": "[",
     "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "assignment_operator",
+    "named": true
   },
   {
     "type": "bare_string",
@@ -193,5 +230,13 @@
   {
     "type": "tag_start",
     "named": true
+  },
+  {
+    "type": "{",
+    "named": false
+  },
+  {
+    "type": "}",
+    "named": false
   }
 ]

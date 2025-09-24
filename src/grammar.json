@@ -28,6 +28,10 @@
         {
           "type": "PATTERN",
           "value": "\\["
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^\\{}]+"
         }
       ]
     },
@@ -84,6 +88,10 @@
         "members": [
           {
             "type": "SYMBOL",
+            "name": "assignment_expression"
+          },
+          {
+            "type": "SYMBOL",
             "name": "filter_expression"
           },
           {
@@ -100,6 +108,66 @@
           }
         ]
       }
+    },
+    "assignment_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "variable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "assignment_operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_value"
+        }
+      ]
+    },
+    "assignment_operator": {
+      "type": "STRING",
+      "value": "="
+    },
+    "_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "array"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "hash"
+        }
+      ]
+    },
+    "array": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "hash": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
     },
     "filter_expression": {
       "type": "SEQ",
@@ -160,22 +228,6 @@
         {
           "type": "STRING",
           "value": "INCLUDE"
-        },
-        {
-          "type": "STRING",
-          "value": "USE"
-        },
-        {
-          "type": "STRING",
-          "value": "FILTER"
-        },
-        {
-          "type": "STRING",
-          "value": "PROCESS"
-        },
-        {
-          "type": "STRING",
-          "value": "BLOCK"
         }
       ]
     },
