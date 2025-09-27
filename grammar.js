@@ -17,11 +17,7 @@ module.exports = grammar({
       optional($.else_directive),
       $.end_directive
     ),
-    foreach_block: $ => seq(
-      $.foreach_directive,
-      repeat($._statement),
-      $.end_directive
-    ),
+    foreach_block: $ => seq($.foreach_directive, repeat($._statement), $.end_directive),
     foreach_directive: $ => seq('[%', 'FOREACH', field('iterator', $.variable), field('operator', choice('=', 'IN')), field('list', $._value_expression), '%]'),
     conditional_start_directive: $ => seq('[%', choice('IF', 'UNLESS'), $._value_expression, optional(seq(';', $._statement_list)), '%]'),
     elsif_directive:             $ => seq('[%', 'ELSIF', $._value_expression, optional(seq(';', $._statement_list)), '%]'),
@@ -36,8 +32,9 @@ module.exports = grammar({
       $.call_expression,
       $.primary_expression
     ),
+    
     primary_expression: $ => choice(
-      $.variable,
+      prec(1, $.variable),
       $.string,
       $.bare_string,
       $.array,
@@ -45,28 +42,16 @@ module.exports = grammar({
       $.parenthesized_expression
     ),
     
-    // --- MODIFIED: The call_expression now uses the new argument_list rule ---
     call_expression: $ => prec(10, seq(
       field('function', $.primary_expression),
-      field('arguments', $.argument_list) // <-- THE FIX IS HERE
+      field('arguments', $.argument_list)
     )),
-
-    // --- NEW: A dedicated rule for a comma-separated list of arguments ---
-    argument_list: $ => seq(
-      '(',
-      optional(seq(
-        $._value_expression,
-        repeat(seq(',', $._value_expression))
-      )),
-      ')'
-    ),
-
+    argument_list: $ => seq('(', optional(seq($._value_expression, repeat(seq(',', $._value_expression)))), ')'),
     ternary_expression: $ => prec.right(-1, seq(
       field('condition', $._value_expression), '?',
       field('if_true', $._value_expression), ':',
       field('if_false', $._value_expression)
     )),
-    // A parenthesized expression for grouping is still a primary expression
     parenthesized_expression: $ => seq('(', $._statement_list, ')'),
     command_expression: $ => seq($.keyword, repeat1($._value_expression)),
     keyword: $ => choice('INCLUDE', 'USE', 'SET', 'GET', 'CALL', 'NEXT'),
