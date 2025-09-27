@@ -5,25 +5,11 @@ module.exports = grammar({
 
   rules: {
     source_file: $ => repeat($._statement),
-
-    _statement: $ => choice(
-      $.content,
-      $.directive
-    ),
-
+    _statement: $ => choice($.content, $.directive),
     content: $ => choice(/[^\[]+/, /\[/),
-    
-    // --- MODIFIED: Added foreach_block to the top-level directives ---
-    directive: $ => choice(
-      $.conditional_block,
-      $.foreach_block, // <-- NEW
-      $.simple_directive
-    ),
-    
+    directive: $ => choice($.conditional_block, $.foreach_block, $.simple_directive),
     comment: $ => /#.*/,
-
     simple_directive: $ => seq('[%', $._statement_list, '%]'),
-    
     conditional_block: $ => seq(
       $.conditional_start_directive,
       repeat($._statement),
@@ -31,29 +17,16 @@ module.exports = grammar({
       optional($.else_directive),
       $.end_directive
     ),
-    
-    // --- NEW: A dedicated block for FOREACH loops ---
     foreach_block: $ => seq(
       $.foreach_directive,
       repeat($._statement),
       $.end_directive
     ),
-
-    // --- NEW: The opening directive for a FOREACH loop ---
-    foreach_directive: $ => seq(
-      '[%',
-      'FOREACH',
-      field('iterator', $.variable),
-      field('operator', choice('=', 'IN')),
-      field('list', $._value_expression),
-      '%]'
-    ),
-
+    foreach_directive: $ => seq('[%', 'FOREACH', field('iterator', $.variable), field('operator', choice('=', 'IN')), field('list', $._value_expression), '%]'),
     conditional_start_directive: $ => seq('[%', choice('IF', 'UNLESS'), $._value_expression, optional(seq(';', $._statement_list)), '%]'),
     elsif_directive:             $ => seq('[%', 'ELSIF', $._value_expression, optional(seq(';', $._statement_list)), '%]'),
     else_directive:              $ => seq('[%', 'ELSE', $._statement_list, '%]'),
     end_directive:               $ => seq('[%', 'END', '%]'),
-
     _statement_list: $ => seq($._directive_statement, repeat(seq(';', $._directive_statement))),
     _directive_statement: $ => choice($.command_expression, $.assignment_expression, $._value_expression),
     _value_expression: $ => choice(
@@ -71,16 +44,30 @@ module.exports = grammar({
       $.hash,
       $.parenthesized_expression
     ),
+    
+    // --- MODIFIED: The call_expression now uses the new argument_list rule ---
     call_expression: $ => prec(10, seq(
       field('function', $.primary_expression),
-      field('arguments', $.parenthesized_expression)
+      field('arguments', $.argument_list) // <-- THE FIX IS HERE
     )),
+
+    // --- NEW: A dedicated rule for a comma-separated list of arguments ---
+    argument_list: $ => seq(
+      '(',
+      optional(seq(
+        $._value_expression,
+        repeat(seq(',', $._value_expression))
+      )),
+      ')'
+    ),
+
     ternary_expression: $ => prec.right(-1, seq(
       field('condition', $._value_expression), '?',
       field('if_true', $._value_expression), ':',
       field('if_false', $._value_expression)
     )),
-    parenthesized_expression: $ => seq('(', optional($._statement_list), ')'),
+    // A parenthesized expression for grouping is still a primary expression
+    parenthesized_expression: $ => seq('(', $._statement_list, ')'),
     command_expression: $ => seq($.keyword, repeat1($._value_expression)),
     keyword: $ => choice('INCLUDE', 'USE', 'SET', 'GET', 'CALL', 'NEXT'),
     binary_expression: $ => choice(
