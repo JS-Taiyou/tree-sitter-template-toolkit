@@ -30,3 +30,55 @@ Complex Expression
         (variable (identifier) (dot) (identifier))
         (comparison_operator)
         (bare_string)))))
+
+====================
+Complex Hash and Call
+====================
+[% myvar.push({ key => 'value' }) %]
+
+---
+(source_file
+  (simple_directive
+    (call_expression
+      (variable (identifier) (dot) (identifier))
+      (parenthesized_expression
+        (hash
+          (hash_pair (key (identifier)) (value (string))))))))
+
+====================
+Semicolon Separator
+====================
+[% a = 1; b = 2 %]
+
+---
+(source_file
+  (simple_directive
+    (statement_list
+      (assignment_expression (variable (identifier)) (bare_string))
+      (assignment_expression (variable (identifier)) (bare_string)))))
+
+====================
+Method Call on Variable
+====================
+[% lang.t('hello') %]
+
+---
+(source_file
+  (simple_directive
+    (statement_list
+      (call_expression
+        (function (variable (identifier) (dot) (identifier)))
+        (arguments (parenthesized_expression (string)))))))
+
+====================
+Method Call on String Literal
+====================
+[% 'hello'.ucfirst() %]
+
+---
+(source_file
+  (simple_directive
+    (statement_list
+      (call_expression
+        (function (string))
+        (arguments (parenthesized_expression))))))

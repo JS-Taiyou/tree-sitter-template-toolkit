@@ -17,10 +17,6 @@
           "named": true
         },
         {
-          "type": "bare_string",
-          "named": true
-        },
-        {
           "type": "binary_expression",
           "named": true
         },
@@ -65,10 +61,6 @@
         "types": [
           {
             "type": "array",
-            "named": true
-          },
-          {
-            "type": "bare_string",
             "named": true
           },
           {
@@ -136,10 +128,6 @@
             "named": true
           },
           {
-            "type": "bare_string",
-            "named": true
-          },
-          {
             "type": "binary_expression",
             "named": true
           },
@@ -194,6 +182,38 @@
         "required": true,
         "types": [
           {
+            "type": "array",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "filter_expression",
+            "named": true
+          },
+          {
+            "type": "hash",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "ternary_expression",
+            "named": true
+          },
+          {
             "type": "variable",
             "named": true
           }
@@ -211,10 +231,6 @@
       "types": [
         {
           "type": "array",
-          "named": true
-        },
-        {
-          "type": "bare_string",
           "named": true
         },
         {
@@ -301,7 +317,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -309,7 +325,7 @@
           "named": true
         },
         {
-          "type": "bare_string",
+          "type": "assignment_expression",
           "named": true
         },
         {
@@ -318,6 +334,10 @@
         },
         {
           "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "command_expression",
           "named": true
         },
         {
@@ -374,22 +394,17 @@
   {
     "type": "else_directive",
     "named": true,
-    "fields": {}
-  },
-  {
-    "type": "elsif_directive",
-    "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
           "type": "array",
           "named": true
         },
         {
-          "type": "bare_string",
+          "type": "assignment_expression",
           "named": true
         },
         {
@@ -398,6 +413,65 @@
         },
         {
           "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "command_expression",
+          "named": true
+        },
+        {
+          "type": "filter_expression",
+          "named": true
+        },
+        {
+          "type": "hash",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "ternary_expression",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "elsif_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "command_expression",
           "named": true
         },
         {
@@ -442,10 +516,6 @@
       "types": [
         {
           "type": "array",
-          "named": true
-        },
-        {
-          "type": "bare_string",
           "named": true
         },
         {
@@ -529,10 +599,6 @@
             "named": true
           },
           {
-            "type": "bare_string",
-            "named": true
-          },
-          {
             "type": "binary_expression",
             "named": true
           },
@@ -588,15 +654,15 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
           "type": "array",
           "named": true
         },
         {
-          "type": "bare_string",
+          "type": "assignment_expression",
           "named": true
         },
         {
@@ -605,6 +671,10 @@
         },
         {
           "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "command_expression",
           "named": true
         },
         {
@@ -639,8 +709,8 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
           "type": "array",
@@ -648,10 +718,6 @@
         },
         {
           "type": "assignment_expression",
-          "named": true
-        },
-        {
-          "type": "bare_string",
           "named": true
         },
         {
@@ -731,10 +797,6 @@
             "named": true
           },
           {
-            "type": "bare_string",
-            "named": true
-          },
-          {
             "type": "binary_expression",
             "named": true
           },
@@ -777,10 +839,6 @@
             "named": true
           },
           {
-            "type": "bare_string",
-            "named": true
-          },
-          {
             "type": "binary_expression",
             "named": true
           },
@@ -820,10 +878,6 @@
         "types": [
           {
             "type": "array",
-            "named": true
-          },
-          {
-            "type": "bare_string",
             "named": true
           },
           {
@@ -911,6 +965,10 @@
   },
   {
     "type": ":",
+    "named": false
+  },
+  {
+    "type": ";",
     "named": false
   },
   {
@@ -1008,10 +1066,6 @@
   {
     "type": "and",
     "named": false
-  },
-  {
-    "type": "bare_string",
-    "named": true
   },
   {
     "type": "comment",
