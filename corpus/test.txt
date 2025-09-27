@@ -82,3 +82,22 @@ Method Call on String Literal
       (call_expression
         (function (string))
         (arguments (parenthesized_expression))))))
+
+====================
+Call Expression in Hash Value
+====================
+[% myhash = { key => lang.t('value') } %]
+
+---
+(source_file
+  (simple_directive
+    (statement_list
+      (assignment_expression
+        (variable (identifier))
+        (hash
+          (hash_pair
+            (key (identifier))
+            (value
+              (call_expression
+                (function (variable (identifier) (dot) (identifier)))
+                (arguments (parenthesized_expression (string)))))))))))

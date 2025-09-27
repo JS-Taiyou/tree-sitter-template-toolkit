@@ -13,10 +13,6 @@
       "required": true,
       "types": [
         {
-          "type": "array",
-          "named": true
-        },
-        {
           "type": "binary_expression",
           "named": true
         },
@@ -29,15 +25,7 @@
           "named": true
         },
         {
-          "type": "hash",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "string",
+          "type": "primary_expression",
           "named": true
         },
         {
@@ -60,10 +48,6 @@
         "required": true,
         "types": [
           {
-            "type": "array",
-            "named": true
-          },
-          {
             "type": "binary_expression",
             "named": true
           },
@@ -76,23 +60,11 @@
             "named": true
           },
           {
-            "type": "hash",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "string",
+            "type": "primary_expression",
             "named": true
           },
           {
             "type": "ternary_expression",
-            "named": true
-          },
-          {
-            "type": "variable",
             "named": true
           }
         ]
@@ -124,10 +96,6 @@
         "required": true,
         "types": [
           {
-            "type": "array",
-            "named": true
-          },
-          {
             "type": "binary_expression",
             "named": true
           },
@@ -140,23 +108,11 @@
             "named": true
           },
           {
-            "type": "hash",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "string",
+            "type": "primary_expression",
             "named": true
           },
           {
             "type": "ternary_expression",
-            "named": true
-          },
-          {
-            "type": "variable",
             "named": true
           }
         ]
@@ -182,39 +138,7 @@
         "required": true,
         "types": [
           {
-            "type": "array",
-            "named": true
-          },
-          {
-            "type": "binary_expression",
-            "named": true
-          },
-          {
-            "type": "call_expression",
-            "named": true
-          },
-          {
-            "type": "filter_expression",
-            "named": true
-          },
-          {
-            "type": "hash",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "ternary_expression",
-            "named": true
-          },
-          {
-            "type": "variable",
+            "type": "primary_expression",
             "named": true
           }
         ]
@@ -230,10 +154,6 @@
       "required": true,
       "types": [
         {
-          "type": "array",
-          "named": true
-        },
-        {
           "type": "binary_expression",
           "named": true
         },
@@ -246,27 +166,15 @@
           "named": true
         },
         {
-          "type": "hash",
-          "named": true
-        },
-        {
           "type": "keyword",
           "named": true
         },
         {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "string",
+          "type": "primary_expression",
           "named": true
         },
         {
           "type": "ternary_expression",
-          "named": true
-        },
-        {
-          "type": "variable",
           "named": true
         }
       ]
@@ -321,10 +229,6 @@
       "required": true,
       "types": [
         {
-          "type": "array",
-          "named": true
-        },
-        {
           "type": "assignment_expression",
           "named": true
         },
@@ -345,23 +249,11 @@
           "named": true
         },
         {
-          "type": "hash",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "string",
+          "type": "primary_expression",
           "named": true
         },
         {
           "type": "ternary_expression",
-          "named": true
-        },
-        {
-          "type": "variable",
           "named": true
         }
       ]
@@ -400,10 +292,6 @@
       "required": false,
       "types": [
         {
-          "type": "array",
-          "named": true
-        },
-        {
           "type": "assignment_expression",
           "named": true
         },
@@ -424,23 +312,11 @@
           "named": true
         },
         {
-          "type": "hash",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "string",
+          "type": "primary_expression",
           "named": true
         },
         {
           "type": "ternary_expression",
-          "named": true
-        },
-        {
-          "type": "variable",
           "named": true
         }
       ]
@@ -455,10 +331,6 @@
       "required": true,
       "types": [
         {
-          "type": "array",
-          "named": true
-        },
-        {
           "type": "assignment_expression",
           "named": true
         },
@@ -479,23 +351,11 @@
           "named": true
         },
         {
-          "type": "hash",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "string",
+          "type": "primary_expression",
           "named": true
         },
         {
           "type": "ternary_expression",
-          "named": true
-        },
-        {
-          "type": "variable",
           "named": true
         }
       ]
@@ -515,10 +375,6 @@
       "required": true,
       "types": [
         {
-          "type": "array",
-          "named": true
-        },
-        {
           "type": "binary_expression",
           "named": true
         },
@@ -531,27 +387,15 @@
           "named": true
         },
         {
-          "type": "hash",
-          "named": true
-        },
-        {
           "type": "identifier",
           "named": true
         },
         {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "string",
+          "type": "primary_expression",
           "named": true
         },
         {
           "type": "ternary_expression",
-          "named": true
-        },
-        {
-          "type": "variable",
           "named": true
         }
       ]
@@ -595,10 +439,6 @@
         "required": true,
         "types": [
           {
-            "type": "array",
-            "named": true
-          },
-          {
             "type": "binary_expression",
             "named": true
           },
@@ -611,23 +451,11 @@
             "named": true
           },
           {
-            "type": "hash",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "string",
+            "type": "primary_expression",
             "named": true
           },
           {
             "type": "ternary_expression",
-            "named": true
-          },
-          {
-            "type": "variable",
             "named": true
           }
         ]
@@ -658,10 +486,6 @@
       "required": false,
       "types": [
         {
-          "type": "array",
-          "named": true
-        },
-        {
           "type": "assignment_expression",
           "named": true
         },
@@ -682,6 +506,29 @@
           "named": true
         },
         {
+          "type": "primary_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "primary_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
           "type": "hash",
           "named": true
         },
@@ -691,10 +538,6 @@
         },
         {
           "type": "string",
-          "named": true
-        },
-        {
-          "type": "ternary_expression",
           "named": true
         },
         {
@@ -713,10 +556,6 @@
       "required": false,
       "types": [
         {
-          "type": "array",
-          "named": true
-        },
-        {
           "type": "assignment_expression",
           "named": true
         },
@@ -737,23 +576,11 @@
           "named": true
         },
         {
-          "type": "hash",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "string",
+          "type": "primary_expression",
           "named": true
         },
         {
           "type": "ternary_expression",
-          "named": true
-        },
-        {
-          "type": "variable",
           "named": true
         }
       ]
@@ -793,10 +620,6 @@
         "required": true,
         "types": [
           {
-            "type": "array",
-            "named": true
-          },
-          {
             "type": "binary_expression",
             "named": true
           },
@@ -809,23 +632,11 @@
             "named": true
           },
           {
-            "type": "hash",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "string",
+            "type": "primary_expression",
             "named": true
           },
           {
             "type": "ternary_expression",
-            "named": true
-          },
-          {
-            "type": "variable",
             "named": true
           }
         ]
@@ -835,10 +646,6 @@
         "required": true,
         "types": [
           {
-            "type": "array",
-            "named": true
-          },
-          {
             "type": "binary_expression",
             "named": true
           },
@@ -851,23 +658,11 @@
             "named": true
           },
           {
-            "type": "hash",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "string",
+            "type": "primary_expression",
             "named": true
           },
           {
             "type": "ternary_expression",
-            "named": true
-          },
-          {
-            "type": "variable",
             "named": true
           }
         ]
@@ -877,10 +672,6 @@
         "required": true,
         "types": [
           {
-            "type": "array",
-            "named": true
-          },
-          {
             "type": "binary_expression",
             "named": true
           },
@@ -893,23 +684,11 @@
             "named": true
           },
           {
-            "type": "hash",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "string",
+            "type": "primary_expression",
             "named": true
           },
           {
             "type": "ternary_expression",
-            "named": true
-          },
-          {
-            "type": "variable",
             "named": true
           }
         ]

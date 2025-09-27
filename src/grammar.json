@@ -286,10 +286,6 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "call_expression"
-        },
-        {
-          "type": "SYMBOL",
           "name": "ternary_expression"
         },
         {
@@ -300,6 +296,19 @@
           "type": "SYMBOL",
           "name": "filter_expression"
         },
+        {
+          "type": "SYMBOL",
+          "name": "call_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "primary_expression"
+        }
+      ]
+    },
+    "primary_expression": {
+      "type": "CHOICE",
+      "members": [
         {
           "type": "SYMBOL",
           "name": "variable"
@@ -333,7 +342,7 @@
             "name": "function",
             "content": {
               "type": "SYMBOL",
-              "name": "_value_expression"
+              "name": "primary_expression"
             }
           },
           {

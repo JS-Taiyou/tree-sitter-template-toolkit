@@ -9,10 +9,7 @@ module.exports = grammar({
     content: $ => choice(/[^\[]+/, /\[/),
     directive: $ => choice($.conditional_block, $.simple_directive),
     comment: $ => /#.*/,
-
-    // --- MODIFIED: A simple directive now contains a statement list ---
     simple_directive: $ => seq('[%', $._statement_list, '%]'),
-    
     conditional_block: $ => seq(
       $.conditional_start_directive,
       repeat($._statement),
@@ -20,31 +17,25 @@ module.exports = grammar({
       optional($.else_directive),
       $.end_directive
     ),
-
-    // --- MODIFIED: Conditional blocks now also contain statement lists ---
     conditional_start_directive: $ => seq('[%', choice('IF', 'UNLESS'), $._value_expression, optional(seq(';', $._statement_list)), '%]'),
     elsif_directive:             $ => seq('[%', 'ELSIF', $._value_expression, optional(seq(';', $._statement_list)), '%]'),
     else_directive:              $ => seq('[%', 'ELSE', $._statement_list, '%]'),
     end_directive:               $ => seq('[%', 'END', '%]'),
+    _statement_list: $ => seq($._directive_statement, repeat(seq(';', $._directive_statement))),
+    _directive_statement: $ => choice($.command_expression, $.assignment_expression, $._value_expression),
 
-    // --- NEW: A rule for one or more semicolon-separated statements ---
-    _statement_list: $ => seq(
-      $._directive_statement,
-      repeat(seq(';', $._directive_statement))
-    ),
-
-    _directive_statement: $ => choice(
-      $.command_expression,
-      $.assignment_expression,
-      $._value_expression
-    ),
-
-    // --- MODIFIED: A powerful, recursive call_expression is now a top-level value ---
+    // The top-level expression rule, includes operations
     _value_expression: $ => choice(
-      $.call_expression,
       $.ternary_expression,
       $.binary_expression,
       $.filter_expression,
+      $.call_expression, // <-- A call is a high-level expression
+      $.primary_expression // <-- The fundamental units
+    ),
+
+    // --- NEW: The Primary Expression Rule ---
+    // These are the "nouns" or basic units of the language.
+    primary_expression: $ => choice(
       $.variable,
       $.string,
       $.array,
@@ -52,11 +43,10 @@ module.exports = grammar({
       $.parenthesized_expression
     ),
     
-    // --- MODIFIED: The Universal Call Expression ---
-    // The "function" can be any value expression. This allows `var.func()`, `'string'.func()`, and `(func())()`.
-    // It has a high precedence to ensure it's parsed before binary operators.
+    // --- MODIFIED: A call expression now operates ON a primary expression ---
+    // This resolves the ambiguity.
     call_expression: $ => prec(10, seq(
-      field('function', $._value_expression),
+      field('function', $.primary_expression),
       field('arguments', $.parenthesized_expression)
     )),
 

@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-template-toolkit",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "TemplateToolkit grammar for tree-sitter",
   "repository": "https://github.com/JS-Taiyou/tree-sitter-template-toolkit",
   "license": "MIT",

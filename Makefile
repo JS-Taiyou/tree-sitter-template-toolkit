@@ -4,7 +4,7 @@ endif
 
 LANGUAGE_NAME := tree-sitter-template-toolkit
 HOMEPAGE_URL := https://github.com/JS-Taiyou/tree-sitter-template-toolkit
-VERSION := 0.1.1
+VERSION := 0.1.2
 
 # repository
 SRC_DIR := src
