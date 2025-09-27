@@ -4,6 +4,7 @@ module.exports = grammar({
   extras: $ => [/\s/, $.comment],
 
   rules: {
+    // ... all the top-level rules are correct ...
     source_file: $ => repeat($._statement),
     _statement: $ => choice($.content, $.directive),
     content: $ => choice(/[^\[]+/, /\[/),
@@ -23,28 +24,24 @@ module.exports = grammar({
     end_directive:               $ => seq('[%', 'END', '%]'),
     _statement_list: $ => seq($._directive_statement, repeat(seq(';', $._directive_statement))),
     _directive_statement: $ => choice($.command_expression, $.assignment_expression, $._value_expression),
-
-    // The top-level expression rule, includes operations
     _value_expression: $ => choice(
       $.ternary_expression,
       $.binary_expression,
       $.filter_expression,
-      $.call_expression, // <-- A call is a high-level expression
-      $.primary_expression // <-- The fundamental units
+      $.call_expression,
+      $.primary_expression
     ),
 
-    // --- NEW: The Primary Expression Rule ---
-    // These are the "nouns" or basic units of the language.
+    // --- MODIFIED: Added `bare_string` back to the list of primary values ---
     primary_expression: $ => choice(
       $.variable,
       $.string,
+      $.bare_string, // <-- THE FIX IS HERE
       $.array,
       $.hash,
       $.parenthesized_expression
     ),
     
-    // --- MODIFIED: A call expression now operates ON a primary expression ---
-    // This resolves the ambiguity.
     call_expression: $ => prec(10, seq(
       field('function', $.primary_expression),
       field('arguments', $.parenthesized_expression)
@@ -57,7 +54,10 @@ module.exports = grammar({
     )),
     parenthesized_expression: $ => seq('(', optional($._statement_list), ')'),
     command_expression: $ => seq($.keyword, repeat1($._value_expression)),
+
+    // --- MODIFIED: Added INCLUDE back to the keyword list ---
     keyword: $ => choice('INCLUDE', 'USE', 'SET', 'GET', 'CALL', 'NEXT'),
+
     binary_expression: $ => choice(
       prec.left(3, seq(field('left', $._value_expression), field('operator', '_'), field('right', $._value_expression))),
       prec.left(2, seq(field('left', $._value_expression), field('operator', $.logical_op_high), field('right', $._value_expression))),
@@ -72,6 +72,10 @@ module.exports = grammar({
     hash_pair: $ => seq(field('key', choice($.identifier, $.string)), '=>', field('value', $._value_expression)),
     variable: $ => seq($.identifier, repeat(seq('.', $.identifier))),
     identifier: $ => /[a-zA-Z0-9_][a-zA-Z0-9_]*/,
+    
+    // The bare_string rule itself is still correct
+    bare_string: $ => /[a-zA-Z0-9_.\/]+/,
+
     comparison_operator: $ => choice('==', '!=', '<', '<=', '>', '>='),
     logical_op_high: $ => choice('&&', 'and'),
     logical_op_low: $ => choice('||', 'or'),

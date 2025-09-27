@@ -529,6 +529,10 @@
           "named": true
         },
         {
+          "type": "bare_string",
+          "named": true
+        },
+        {
           "type": "hash",
           "named": true
         },
@@ -845,6 +849,10 @@
   {
     "type": "and",
     "named": false
+  },
+  {
+    "type": "bare_string",
+    "named": true
   },
   {
     "type": "comment",

@@ -101,3 +101,16 @@ Call Expression in Hash Value
               (call_expression
                 (function (variable (identifier) (dot) (identifier)))
                 (arguments (parenthesized_expression (string)))))))))))
+
+====================
+Command Expression
+====================
+[% INCLUDE i/header.tt %]
+
+---
+(source_file
+  (simple_directive
+    (statement_list
+      (command_expression
+        (keyword)
+        (bare_string)))))

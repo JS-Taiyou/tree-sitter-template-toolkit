@@ -319,6 +319,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "bare_string"
+        },
+        {
+          "type": "SYMBOL",
           "name": "array"
         },
         {
@@ -780,6 +784,10 @@
     "identifier": {
       "type": "PATTERN",
       "value": "[a-zA-Z0-9_][a-zA-Z0-9_]*"
+    },
+    "bare_string": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z0-9_.\\/]+"
     },
     "comparison_operator": {
       "type": "CHOICE",
