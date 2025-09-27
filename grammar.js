@@ -4,13 +4,26 @@ module.exports = grammar({
   extras: $ => [/\s/, $.comment],
 
   rules: {
-    // ... all the top-level rules are correct ...
     source_file: $ => repeat($._statement),
-    _statement: $ => choice($.content, $.directive),
+
+    _statement: $ => choice(
+      $.content,
+      $.directive
+    ),
+
     content: $ => choice(/[^\[]+/, /\[/),
-    directive: $ => choice($.conditional_block, $.simple_directive),
+    
+    // --- MODIFIED: Added foreach_block to the top-level directives ---
+    directive: $ => choice(
+      $.conditional_block,
+      $.foreach_block, // <-- NEW
+      $.simple_directive
+    ),
+    
     comment: $ => /#.*/,
+
     simple_directive: $ => seq('[%', $._statement_list, '%]'),
+    
     conditional_block: $ => seq(
       $.conditional_start_directive,
       repeat($._statement),
@@ -18,10 +31,29 @@ module.exports = grammar({
       optional($.else_directive),
       $.end_directive
     ),
+    
+    // --- NEW: A dedicated block for FOREACH loops ---
+    foreach_block: $ => seq(
+      $.foreach_directive,
+      repeat($._statement),
+      $.end_directive
+    ),
+
+    // --- NEW: The opening directive for a FOREACH loop ---
+    foreach_directive: $ => seq(
+      '[%',
+      'FOREACH',
+      field('iterator', $.variable),
+      field('operator', choice('=', 'IN')),
+      field('list', $._value_expression),
+      '%]'
+    ),
+
     conditional_start_directive: $ => seq('[%', choice('IF', 'UNLESS'), $._value_expression, optional(seq(';', $._statement_list)), '%]'),
     elsif_directive:             $ => seq('[%', 'ELSIF', $._value_expression, optional(seq(';', $._statement_list)), '%]'),
     else_directive:              $ => seq('[%', 'ELSE', $._statement_list, '%]'),
     end_directive:               $ => seq('[%', 'END', '%]'),
+
     _statement_list: $ => seq($._directive_statement, repeat(seq(';', $._directive_statement))),
     _directive_statement: $ => choice($.command_expression, $.assignment_expression, $._value_expression),
     _value_expression: $ => choice(
@@ -31,22 +63,18 @@ module.exports = grammar({
       $.call_expression,
       $.primary_expression
     ),
-
-    // --- MODIFIED: Added `bare_string` back to the list of primary values ---
     primary_expression: $ => choice(
       $.variable,
       $.string,
-      $.bare_string, // <-- THE FIX IS HERE
+      $.bare_string,
       $.array,
       $.hash,
       $.parenthesized_expression
     ),
-    
     call_expression: $ => prec(10, seq(
       field('function', $.primary_expression),
       field('arguments', $.parenthesized_expression)
     )),
-
     ternary_expression: $ => prec.right(-1, seq(
       field('condition', $._value_expression), '?',
       field('if_true', $._value_expression), ':',
@@ -54,10 +82,7 @@ module.exports = grammar({
     )),
     parenthesized_expression: $ => seq('(', optional($._statement_list), ')'),
     command_expression: $ => seq($.keyword, repeat1($._value_expression)),
-
-    // --- MODIFIED: Added INCLUDE back to the keyword list ---
     keyword: $ => choice('INCLUDE', 'USE', 'SET', 'GET', 'CALL', 'NEXT'),
-
     binary_expression: $ => choice(
       prec.left(3, seq(field('left', $._value_expression), field('operator', '_'), field('right', $._value_expression))),
       prec.left(2, seq(field('left', $._value_expression), field('operator', $.logical_op_high), field('right', $._value_expression))),
@@ -72,10 +97,7 @@ module.exports = grammar({
     hash_pair: $ => seq(field('key', choice($.identifier, $.string)), '=>', field('value', $._value_expression)),
     variable: $ => seq($.identifier, repeat(seq('.', $.identifier))),
     identifier: $ => /[a-zA-Z0-9_][a-zA-Z0-9_]*/,
-    
-    // The bare_string rule itself is still correct
     bare_string: $ => /[a-zA-Z0-9_.\/]+/,
-
     comparison_operator: $ => choice('==', '!=', '<', '<=', '>', '>='),
     logical_op_high: $ => choice('&&', 'and'),
     logical_op_low: $ => choice('||', 'or'),
