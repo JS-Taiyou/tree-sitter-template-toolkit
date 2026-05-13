@@ -241,7 +241,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "binary_expression",
@@ -253,10 +253,6 @@
         },
         {
           "type": "filter_expression",
-          "named": true
-        },
-        {
-          "type": "keyword",
           "named": true
         },
         {
@@ -272,11 +268,19 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "ternary_expression",
           "named": true
         },
         {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "variable",
           "named": true
         }
       ]
@@ -1016,11 +1020,6 @@
     }
   },
   {
-    "type": "keyword",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "logical_op_high",
     "named": true,
     "fields": {}
@@ -1565,6 +1564,10 @@
     "named": false
   },
   {
+    "type": "PROCESS",
+    "named": false
+  },
+  {
     "type": "SET",
     "named": false
   },
@@ -1574,6 +1577,10 @@
   },
   {
     "type": "USE",
+    "named": false
+  },
+  {
+    "type": "WRAPPER",
     "named": false
   },
   {

@@ -5,7 +5,7 @@ module.exports = grammar({
 
   externals: $ => [$.content],
 
-  conflicts: $ => [[$.filter_start_directive, $.keyword], [$.elsif_clause], [$.else_clause], [$.variable, $.path], [$.path], [$.inline_conditional], [$.inline_foreach], [$.inline_else_clause], [$.inline_elsif_clause]],
+  conflicts: $ => [[$.filter_start_directive, $.keyword], [$.filter_start_directive, $.command_expression], [$.primary_expression, $.command_expression], [$.elsif_clause], [$.else_clause], [$.variable, $.path], [$.path], [$.inline_conditional], [$.inline_foreach], [$.inline_else_clause], [$.inline_elsif_clause]],
 
   rules: {
     source_file: $ => repeat($._statement),
@@ -86,9 +86,12 @@ module.exports = grammar({
       field('if_false', $._value_expression)
     )),
     parenthesized_expression: $ => seq('(', $._statement_list, ')'),
-    command_expression: $ => seq($.keyword, repeat1(choice($.named_argument, $.path, $._value_expression))),
+    command_expression: $ => choice(
+      seq(choice('INCLUDE', 'PROCESS', 'WRAPPER', 'USE'), choice($.path, $.string, $.variable, $.call_expression), repeat(seq(optional(','), choice($.named_argument, $._value_expression)))),
+      seq(choice('GET', 'CALL', 'NEXT', 'SET', 'FILTER'), repeat(choice($.named_argument, $._value_expression)))
+    ),
     keyword: $ => choice('INCLUDE', 'USE', 'SET', 'GET', 'CALL', 'NEXT', 'FILTER'),
-    named_argument: $ => seq($.identifier, '=', $._value_expression),
+    named_argument: $ => seq($.identifier, choice('=', '=>'), $._value_expression),
     binary_expression: $ => choice(
       prec.left(5, seq(field('left', $._value_expression), field('operator', $.multiplicative_op), field('right', $._value_expression))),
       prec.left(4, seq(field('left', $._value_expression), field('operator', $.additive_op), field('right', $._value_expression))),
@@ -108,7 +111,7 @@ module.exports = grammar({
     hash_pair: $ => seq(field('key', choice($.identifier, $.string)), '=>', field('value', $._value_expression)),
     variable: $ => seq($.identifier, repeat(seq('.', $.identifier))),
     identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
-    path: $ => seq($.identifier, repeat1(choice('.', '/', $.identifier))),
+    path: $ => seq($.identifier, repeat1(seq(choice('.', '/'), $.identifier))),
     comparison_operator: $ => choice('==', '!=', '<', '<=', '>', '>='),
     logical_op_high: $ => choice('&&', 'AND', 'and'),
     logical_op_low: $ => choice('||', 'OR', 'or'),
