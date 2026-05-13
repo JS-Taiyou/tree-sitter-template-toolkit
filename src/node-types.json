@@ -1,5 +1,10 @@
 [
   {
+    "type": "additive_op",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "argument_list",
     "named": true,
     "fields": {},
@@ -135,6 +140,10 @@
             "named": false
           },
           {
+            "type": "additive_op",
+            "named": true
+          },
+          {
             "type": "comparison_operator",
             "named": true
           },
@@ -144,6 +153,10 @@
           },
           {
             "type": "logical_op_low",
+            "named": true
+          },
+          {
+            "type": "multiplicative_op",
             "named": true
           }
         ]
@@ -677,6 +690,269 @@
     }
   },
   {
+    "type": "inline_conditional",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "command_expression",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "filter_expression",
+          "named": true
+        },
+        {
+          "type": "inline_conditional",
+          "named": true
+        },
+        {
+          "type": "inline_else_clause",
+          "named": true
+        },
+        {
+          "type": "inline_elsif_clause",
+          "named": true
+        },
+        {
+          "type": "inline_foreach",
+          "named": true
+        },
+        {
+          "type": "primary_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "inline_else_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "command_expression",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "filter_expression",
+          "named": true
+        },
+        {
+          "type": "inline_conditional",
+          "named": true
+        },
+        {
+          "type": "inline_foreach",
+          "named": true
+        },
+        {
+          "type": "primary_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "inline_elsif_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "command_expression",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "filter_expression",
+          "named": true
+        },
+        {
+          "type": "inline_conditional",
+          "named": true
+        },
+        {
+          "type": "inline_foreach",
+          "named": true
+        },
+        {
+          "type": "primary_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "inline_foreach",
+    "named": true,
+    "fields": {
+      "iterator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      },
+      "list": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "filter_expression",
+            "named": true
+          },
+          {
+            "type": "primary_expression",
+            "named": true
+          },
+          {
+            "type": "ternary_expression",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "=",
+            "named": false
+          },
+          {
+            "type": "IN",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "command_expression",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "filter_expression",
+          "named": true
+        },
+        {
+          "type": "inline_conditional",
+          "named": true
+        },
+        {
+          "type": "inline_foreach",
+          "named": true
+        },
+        {
+          "type": "primary_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "keyword",
     "named": true,
     "fields": {}
@@ -688,6 +964,11 @@
   },
   {
     "type": "logical_op_low",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "multiplicative_op",
     "named": true,
     "fields": {}
   },
@@ -756,6 +1037,14 @@
         },
         {
           "type": "filter_expression",
+          "named": true
+        },
+        {
+          "type": "inline_conditional",
+          "named": true
+        },
+        {
+          "type": "inline_foreach",
           "named": true
         },
         {
@@ -849,6 +1138,14 @@
         },
         {
           "type": "filter_expression",
+          "named": true
+        },
+        {
+          "type": "inline_conditional",
+          "named": true
+        },
+        {
+          "type": "inline_foreach",
           "named": true
         },
         {
@@ -991,6 +1288,10 @@
     "named": false
   },
   {
+    "type": "%",
+    "named": false
+  },
+  {
     "type": "%]",
     "named": false
   },
@@ -1011,7 +1312,19 @@
     "named": false
   },
   {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": "-",
     "named": false
   },
   {

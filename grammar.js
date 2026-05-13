@@ -3,7 +3,7 @@ module.exports = grammar({
 
   extras: $ => [/\s/],
 
-  conflicts: $ => [[$.filter_start_directive, $.keyword], [$.elsif_clause], [$.else_clause], [$.variable, $.path], [$.path]],
+  conflicts: $ => [[$.filter_start_directive, $.keyword], [$.elsif_clause], [$.else_clause], [$.variable, $.path], [$.path], [$.inline_conditional], [$.inline_foreach], [$.inline_else_clause], [$.inline_elsif_clause]],
 
   rules: {
     source_file: $ => repeat($._statement),
@@ -29,8 +29,32 @@ module.exports = grammar({
     else_clause: $ => seq($.else_directive_marker, repeat($._statement)),
     else_directive_marker: $ => seq('[%', 'ELSE', '%]'),
     end_directive: $ => seq('[%', 'END', '%]'),
+    inline_conditional: $ => seq(
+      choice('IF', 'UNLESS'),
+      $._value_expression,
+      repeat(seq(';', $._directive_statement)),
+      repeat($.inline_elsif_clause),
+      optional($.inline_else_clause),
+      ';', 'END'
+    ),
+    inline_elsif_clause: $ => seq(
+      ';', 'ELSIF', $._value_expression,
+      repeat(seq(';', $._directive_statement))
+    ),
+    inline_else_clause: $ => seq(
+      ';', 'ELSE',
+      repeat(seq(';', $._directive_statement))
+    ),
+    inline_foreach: $ => seq(
+      'FOREACH',
+      field('iterator', $.variable),
+      field('operator', choice('=', 'IN')),
+      field('list', $._value_expression),
+      repeat(seq(';', $._directive_statement)),
+      ';', 'END'
+    ),
     _statement_list: $ => seq($._directive_statement, repeat(seq(';', $._directive_statement))),
-    _directive_statement: $ => choice($.command_expression, $.assignment_expression, $.comment, $._value_expression),
+    _directive_statement: $ => choice($.command_expression, $.assignment_expression, $.comment, $.inline_conditional, $.inline_foreach, $._value_expression),
     _value_expression: $ => choice(
       $.ternary_expression,
       $.binary_expression,
@@ -63,11 +87,15 @@ module.exports = grammar({
     keyword: $ => choice('INCLUDE', 'USE', 'SET', 'GET', 'CALL', 'NEXT', 'FILTER'),
     named_argument: $ => seq($.identifier, '=', $._value_expression),
     binary_expression: $ => choice(
+      prec.left(5, seq(field('left', $._value_expression), field('operator', $.multiplicative_op), field('right', $._value_expression))),
+      prec.left(4, seq(field('left', $._value_expression), field('operator', $.additive_op), field('right', $._value_expression))),
       prec.left(3, seq(field('left', $._value_expression), field('operator', '_'), field('right', $._value_expression))),
       prec.left(2, seq(field('left', $._value_expression), field('operator', $.logical_op_high), field('right', $._value_expression))),
       prec.left(1, seq(field('left', $._value_expression), field('operator', $.logical_op_low), field('right', $._value_expression))),
       prec.left(0, seq(field('left', $._value_expression), field('operator', $.comparison_operator), field('right', $._value_expression)))
     ),
+    multiplicative_op: $ => choice('*', '/', '%'),
+    additive_op: $ => choice('+', '-'),
     assignment_expression: $ => prec.right(0, seq($.variable, '=', $._value_expression)),
     filter_expression: $ => prec.left(1, seq($._value_expression, '|', choice($.identifier, seq($.identifier, $.argument_list)))),
     string: $ => seq("'", /[^']*/, "'"),
