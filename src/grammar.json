@@ -22,19 +22,6 @@
         }
       ]
     },
-    "content": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "PATTERN",
-          "value": "[^\\[]+"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\["
-        }
-      ]
-    },
     "directive": {
       "type": "CHOICE",
       "members": [
@@ -1486,7 +1473,12 @@
     ]
   ],
   "precedences": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "content"
+    }
+  ],
   "inline": [],
   "supertypes": [],
   "reserved": {}

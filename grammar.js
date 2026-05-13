@@ -3,12 +3,13 @@ module.exports = grammar({
 
   extras: $ => [/\s/],
 
+  externals: $ => [$.content],
+
   conflicts: $ => [[$.filter_start_directive, $.keyword], [$.elsif_clause], [$.else_clause], [$.variable, $.path], [$.path], [$.inline_conditional], [$.inline_foreach], [$.inline_else_clause], [$.inline_elsif_clause]],
 
   rules: {
     source_file: $ => repeat($._statement),
     _statement: $ => choice($.content, $.directive),
-    content: $ => choice(/[^\[]+/, /\[/),
     directive: $ => choice($.conditional_block, $.foreach_block, $.filter_block, $.simple_directive),
     comment: $ => /#[^%]*/,
     simple_directive: $ => seq('[%', $._statement_list, '%]'),

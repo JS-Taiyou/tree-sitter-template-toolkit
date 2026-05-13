@@ -358,11 +358,6 @@
     }
   },
   {
-    "type": "content",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "directive",
     "named": true,
     "fields": {},
@@ -1603,6 +1598,10 @@
   },
   {
     "type": "comment",
+    "named": true
+  },
+  {
+    "type": "content",
     "named": true
   },
   {
