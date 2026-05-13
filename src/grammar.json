@@ -596,6 +596,10 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "unary_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "ternary_expression"
         },
         {
@@ -615,6 +619,31 @@
           "name": "primary_expression"
         }
       ]
+    },
+    "unary_expression": {
+      "type": "PREC_RIGHT",
+      "value": 9,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "operator",
+            "content": {
+              "type": "STRING",
+              "value": "!"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "operand",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_value_expression"
+            }
+          }
+        ]
+      }
     },
     "primary_expression": {
       "type": "CHOICE",

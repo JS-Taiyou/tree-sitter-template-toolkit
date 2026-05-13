@@ -56,12 +56,14 @@ module.exports = grammar({
     _statement_list: $ => seq($._directive_statement, repeat(seq(';', $._directive_statement))),
     _directive_statement: $ => choice($.command_expression, $.assignment_expression, $.comment, $.inline_conditional, $.inline_foreach, $._value_expression),
     _value_expression: $ => choice(
+      $.unary_expression,
       $.ternary_expression,
       $.binary_expression,
       $.filter_expression,
       $.call_expression,
       $.primary_expression
     ),
+    unary_expression: $ => prec.right(9, seq(field('operator', '!'), field('operand', $._value_expression))),
     
     primary_expression: $ => choice(
       prec(1, $.variable),
