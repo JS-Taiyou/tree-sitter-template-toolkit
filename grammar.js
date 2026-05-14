@@ -5,7 +5,7 @@ module.exports = grammar({
 
   externals: $ => [$.content],
 
-  conflicts: $ => [[$.filter_start_directive, $.keyword], [$.filter_start_directive, $.command_expression], [$.primary_expression, $.command_expression], [$.elsif_clause], [$.else_clause], [$.variable, $.path], [$.path], [$.inline_conditional], [$.inline_foreach], [$.inline_else_clause], [$.inline_elsif_clause]],
+  conflicts: $ => [[$.filter_start_directive, $.keyword], [$.filter_start_directive, $.command_expression], [$.primary_expression, $.command_expression], [$.command_expression], [$.elsif_clause], [$.else_clause], [$.variable, $.path], [$.path], [$.inline_conditional], [$.inline_foreach], [$.inline_else_clause], [$.inline_elsif_clause]],
 
   rules: {
     source_file: $ => repeat($._statement),
@@ -56,7 +56,7 @@ module.exports = grammar({
       repeat(seq(';', $._directive_statement)),
       ';', 'END'
     ),
-    _statement_list: $ => seq($._directive_statement, repeat(seq(';', $._directive_statement))),
+    _statement_list: $ => seq($._directive_statement, repeat(seq(optional(';'), $._directive_statement)), optional(';')),
     _directive_statement: $ => choice($.command_expression, $.assignment_expression, $.comment, $.inline_conditional, $.inline_foreach, $._value_expression),
     _value_expression: $ => choice(
       $.unary_expression,
