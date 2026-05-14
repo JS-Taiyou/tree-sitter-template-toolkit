@@ -411,6 +411,21 @@
     "fields": {}
   },
   {
+    "type": "dollar_interpolation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "else_clause",
     "named": true,
     "fields": {},
@@ -1252,6 +1267,10 @@
       "required": true,
       "types": [
         {
+          "type": "dollar_interpolation",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         }
@@ -1532,6 +1551,10 @@
       "required": true,
       "types": [
         {
+          "type": "dollar_interpolation",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -1552,6 +1575,10 @@
   },
   {
     "type": "\"",
+    "named": false
+  },
+  {
+    "type": "$",
     "named": false
   },
   {
