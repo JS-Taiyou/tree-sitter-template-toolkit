@@ -49,3 +49,12 @@ zig-out/
 *.tgz
 *.zip
 not_commit/
+
+# Test artifacts and local notes
+test-examples/
+test_manual.sh
+test_input.tt2
+test_examples.sh
+test-results.md
+CRUSH.md
+zed_extension_findings.md
