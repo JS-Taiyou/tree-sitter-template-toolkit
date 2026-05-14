@@ -331,7 +331,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -340,6 +340,14 @@
         },
         {
           "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "directive_close",
+          "named": true
+        },
+        {
+          "type": "directive_open",
           "named": true
         },
         {
@@ -389,6 +397,16 @@
     }
   },
   {
+    "type": "directive_close",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "directive_open",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "else_clause",
     "named": true,
     "fields": {},
@@ -414,7 +432,21 @@
   {
     "type": "else_directive_marker",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "directive_close",
+          "named": true
+        },
+        {
+          "type": "directive_open",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "elsif_clause",
@@ -444,7 +476,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -453,6 +485,14 @@
         },
         {
           "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "directive_close",
+          "named": true
+        },
+        {
+          "type": "directive_open",
           "named": true
         },
         {
@@ -477,7 +517,21 @@
   {
     "type": "end_directive",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "directive_close",
+          "named": true
+        },
+        {
+          "type": "directive_open",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "filter_block",
@@ -554,7 +608,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -563,6 +617,14 @@
         },
         {
           "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "directive_close",
+          "named": true
+        },
+        {
+          "type": "directive_open",
           "named": true
         },
         {
@@ -669,6 +731,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "directive_close",
+          "named": true
+        },
+        {
+          "type": "directive_open",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1219,7 +1295,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "assignment_expression",
@@ -1239,6 +1315,14 @@
         },
         {
           "type": "comment",
+          "named": true
+        },
+        {
+          "type": "directive_close",
+          "named": true
+        },
+        {
+          "type": "directive_open",
           "named": true
         },
         {
@@ -1507,6 +1591,10 @@
     "named": false
   },
   {
+    "type": "-%]",
+    "named": false
+  },
+  {
     "type": ".",
     "named": false
   },
@@ -1632,6 +1720,10 @@
   },
   {
     "type": "[%",
+    "named": false
+  },
+  {
+    "type": "[%-",
     "named": false
   },
   {

@@ -47,20 +47,46 @@
       "type": "PATTERN",
       "value": "#[^%]*"
     },
-    "simple_directive": {
-      "type": "SEQ",
+    "directive_open": {
+      "type": "CHOICE",
       "members": [
         {
           "type": "STRING",
           "value": "[%"
         },
         {
+          "type": "STRING",
+          "value": "[%-"
+        }
+      ]
+    },
+    "directive_close": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "%]"
+        },
+        {
+          "type": "STRING",
+          "value": "-%]"
+        }
+      ]
+    },
+    "simple_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "directive_open"
+        },
+        {
           "type": "SYMBOL",
           "name": "_statement_list"
         },
         {
-          "type": "STRING",
-          "value": "%]"
+          "type": "SYMBOL",
+          "name": "directive_close"
         }
       ]
     },
@@ -147,8 +173,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "[%"
+          "type": "SYMBOL",
+          "name": "directive_open"
         },
         {
           "type": "STRING",
@@ -188,8 +214,8 @@
           }
         },
         {
-          "type": "STRING",
-          "value": "%]"
+          "type": "SYMBOL",
+          "name": "directive_close"
         }
       ]
     },
@@ -197,8 +223,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "[%"
+          "type": "SYMBOL",
+          "name": "directive_open"
         },
         {
           "type": "CHOICE",
@@ -218,8 +244,8 @@
           "name": "_value_expression"
         },
         {
-          "type": "STRING",
-          "value": "%]"
+          "type": "SYMBOL",
+          "name": "directive_close"
         }
       ]
     },
@@ -227,8 +253,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "[%"
+          "type": "SYMBOL",
+          "name": "directive_open"
         },
         {
           "type": "STRING",
@@ -239,8 +265,8 @@
           "name": "_value_expression"
         },
         {
-          "type": "STRING",
-          "value": "%]"
+          "type": "SYMBOL",
+          "name": "directive_close"
         }
       ]
     },
@@ -248,8 +274,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "[%"
+          "type": "SYMBOL",
+          "name": "directive_open"
         },
         {
           "type": "STRING",
@@ -260,8 +286,8 @@
           "name": "_value_expression"
         },
         {
-          "type": "STRING",
-          "value": "%]"
+          "type": "SYMBOL",
+          "name": "directive_close"
         }
       ]
     },
@@ -301,16 +327,16 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "[%"
+          "type": "SYMBOL",
+          "name": "directive_open"
         },
         {
           "type": "STRING",
           "value": "ELSE"
         },
         {
-          "type": "STRING",
-          "value": "%]"
+          "type": "SYMBOL",
+          "name": "directive_close"
         }
       ]
     },
@@ -318,16 +344,16 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "[%"
+          "type": "SYMBOL",
+          "name": "directive_open"
         },
         {
           "type": "STRING",
           "value": "END"
         },
         {
-          "type": "STRING",
-          "value": "%]"
+          "type": "SYMBOL",
+          "name": "directive_close"
         }
       ]
     },

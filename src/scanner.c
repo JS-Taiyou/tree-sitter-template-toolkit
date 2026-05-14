@@ -34,6 +34,15 @@ bool tree_sitter_template_toolkit_external_scanner_scan(void *payload, TSLexer *
       if (lexer->lookahead == '%') {
         return advanced;
       }
+      if (lexer->lookahead == '-') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '%') {
+          return advanced;
+        }
+        advanced = true;
+        lexer->mark_end(lexer);
+        continue;
+      }
       advanced = true;
       lexer->mark_end(lexer);
       continue;
