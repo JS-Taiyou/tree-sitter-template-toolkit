@@ -5,12 +5,12 @@ module.exports = grammar({
 
   externals: $ => [$.content],
 
-  conflicts: $ => [[$.filter_start_directive, $.keyword], [$.filter_start_directive, $.command_expression], [$.primary_expression, $.command_expression], [$.command_expression], [$.elsif_clause], [$.else_clause], [$.variable, $.path], [$.path], [$.inline_conditional], [$.inline_foreach], [$.inline_else_clause], [$.inline_elsif_clause]],
+  conflicts: $ => [[$.filter_start_directive, $.keyword], [$.filter_start_directive, $.command_expression], [$.primary_expression, $.command_expression], [$.command_expression], [$.elsif_clause], [$.else_clause], [$.case_clause], [$.default_clause], [$.catch_clause], [$.variable, $.path], [$.path], [$.inline_conditional], [$.inline_foreach], [$.inline_else_clause], [$.inline_elsif_clause]],
 
   rules: {
     source_file: $ => repeat($._statement),
     _statement: $ => choice($.content, $.directive),
-    directive: $ => choice($.conditional_block, $.foreach_block, $.filter_block, $.simple_directive),
+    directive: $ => choice($.conditional_block, $.foreach_block, $.filter_block, $.switch_block, $.while_block, $.block_block, $.try_block, $.simple_directive),
     comment: $ => /#[^%]*/,
     directive_open: $ => choice('[%', '[%-'),
     directive_close: $ => choice('%]', '-%]'),
@@ -24,6 +24,20 @@ module.exports = grammar({
     ),
     foreach_block: $ => seq($.foreach_directive, repeat($._statement), $.end_directive),
     filter_block: $ => seq($.filter_start_directive, repeat($._statement), $.end_directive),
+    switch_block: $ => seq($.switch_directive, repeat($.case_clause), optional($.default_clause), $.end_directive),
+    switch_directive: $ => seq($.directive_open, 'SWITCH', $._value_expression, $.directive_close),
+    case_clause: $ => seq($.case_directive, repeat($._statement)),
+    case_directive: $ => seq($.directive_open, 'CASE', $._value_expression, $.directive_close),
+    default_clause: $ => seq($.default_directive, repeat($._statement)),
+    default_directive: $ => seq($.directive_open, 'DEFAULT', $.directive_close),
+    while_block: $ => seq($.while_directive, repeat($._statement), $.end_directive),
+    while_directive: $ => seq($.directive_open, 'WHILE', $._value_expression, $.directive_close),
+    block_block: $ => seq($.block_directive, repeat($._statement), $.end_directive),
+    block_directive: $ => seq($.directive_open, 'BLOCK', $.identifier, $.directive_close),
+    try_block: $ => seq($.try_directive, repeat($._statement), repeat($.catch_clause), $.end_directive),
+    try_directive: $ => seq($.directive_open, 'TRY', $.directive_close),
+    catch_clause: $ => seq($.catch_directive, repeat($._statement)),
+    catch_directive: $ => seq($.directive_open, 'CATCH', optional($.identifier), $.directive_close),
     foreach_directive: $ => seq($.directive_open, 'FOREACH', field('iterator', $.variable), field('operator', choice('=', 'IN')), field('list', $._value_expression), $.directive_close),
     conditional_start_directive: $ => seq($.directive_open, choice('IF', 'UNLESS'), $._value_expression, $.directive_close),
     filter_start_directive: $ => seq($.directive_open, 'FILTER', $._value_expression, $.directive_close),
@@ -90,7 +104,7 @@ module.exports = grammar({
     parenthesized_expression: $ => seq('(', $._statement_list, ')'),
     command_expression: $ => choice(
       seq(choice('INCLUDE', 'PROCESS', 'WRAPPER', 'USE'), choice($.path, $.string, $.variable, $.call_expression), repeat(seq(optional(','), choice($.named_argument, $._value_expression)))),
-      seq(choice('GET', 'CALL', 'NEXT', 'SET', 'FILTER'), repeat(choice($.named_argument, $._value_expression)))
+      seq(choice('GET', 'CALL', 'NEXT', 'LAST', 'SET', 'FILTER'), repeat(choice($.named_argument, $._value_expression)))
     ),
     keyword: $ => choice('INCLUDE', 'USE', 'SET', 'GET', 'CALL', 'NEXT', 'FILTER'),
     named_argument: $ => seq($.identifier, choice('=', '=>'), $._value_expression),
