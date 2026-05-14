@@ -106,7 +106,7 @@ module.exports = grammar({
     additive_op: $ => choice('+', '-'),
     assignment_expression: $ => prec.right(0, seq($.variable, '=', $._value_expression)),
     filter_expression: $ => prec.left(1, seq($._value_expression, '|', choice($.identifier, seq($.identifier, $.argument_list)))),
-    string: $ => seq("'", /[^']*/, "'"),
+    string: $ => choice(seq("'", /[^']*/, "'"), seq('"', /[^"]*/, '"')),
     number: $ => /\d+(\.\d+)?/,
     array: $ => seq('[', optional(seq($._value_expression, repeat(seq(',', $._value_expression)))), ']'),
     hash: $ => seq('{', optional(seq($.hash_pair, repeat(seq(',', $.hash_pair)))), '}'),
