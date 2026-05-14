@@ -1052,6 +1052,65 @@
     }
   },
   {
+    "type": "inline_case",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "command_expression",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "filter_expression",
+          "named": true
+        },
+        {
+          "type": "inline_conditional",
+          "named": true
+        },
+        {
+          "type": "inline_foreach",
+          "named": true
+        },
+        {
+          "type": "inline_switch",
+          "named": true
+        },
+        {
+          "type": "primary_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_expression",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "inline_conditional",
     "named": true,
     "fields": {},
@@ -1097,6 +1156,69 @@
         },
         {
           "type": "inline_foreach",
+          "named": true
+        },
+        {
+          "type": "inline_switch",
+          "named": true
+        },
+        {
+          "type": "primary_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_expression",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "inline_default",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "command_expression",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "filter_expression",
+          "named": true
+        },
+        {
+          "type": "inline_conditional",
+          "named": true
+        },
+        {
+          "type": "inline_foreach",
+          "named": true
+        },
+        {
+          "type": "inline_switch",
           "named": true
         },
         {
@@ -1155,6 +1277,10 @@
           "named": true
         },
         {
+          "type": "inline_switch",
+          "named": true
+        },
+        {
           "type": "primary_expression",
           "named": true
         },
@@ -1207,6 +1333,10 @@
         },
         {
           "type": "inline_foreach",
+          "named": true
+        },
+        {
+          "type": "inline_switch",
           "named": true
         },
         {
@@ -1317,6 +1447,53 @@
         },
         {
           "type": "inline_foreach",
+          "named": true
+        },
+        {
+          "type": "inline_switch",
+          "named": true
+        },
+        {
+          "type": "primary_expression",
+          "named": true
+        },
+        {
+          "type": "ternary_expression",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "inline_switch",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "filter_expression",
+          "named": true
+        },
+        {
+          "type": "inline_case",
+          "named": true
+        },
+        {
+          "type": "inline_default",
           "named": true
         },
         {
@@ -1464,6 +1641,10 @@
           "named": true
         },
         {
+          "type": "inline_switch",
+          "named": true
+        },
+        {
           "type": "primary_expression",
           "named": true
         },
@@ -1578,6 +1759,10 @@
         },
         {
           "type": "inline_foreach",
+          "named": true
+        },
+        {
+          "type": "inline_switch",
           "named": true
         },
         {

@@ -5,7 +5,7 @@ module.exports = grammar({
 
   externals: $ => [$.content],
 
-  conflicts: $ => [[$.filter_start_directive, $.keyword], [$.filter_start_directive, $.command_expression], [$.primary_expression, $.command_expression], [$.command_expression], [$.elsif_clause], [$.else_clause], [$.case_clause], [$.default_clause], [$.catch_clause], [$.variable, $.path], [$.path], [$.inline_conditional], [$.inline_foreach], [$.inline_else_clause], [$.inline_elsif_clause]],
+  conflicts: $ => [[$.filter_start_directive, $.keyword], [$.filter_start_directive, $.command_expression], [$.primary_expression, $.command_expression], [$.command_expression], [$.elsif_clause], [$.else_clause], [$.case_clause], [$.default_clause], [$.catch_clause], [$.inline_case], [$.inline_default], [$.switch_block], [$.while_block], [$.block_block], [$.try_block], [$.conditional_block], [$.foreach_block], [$.filter_block], [$.variable, $.path], [$.path], [$.inline_conditional], [$.inline_foreach], [$.inline_else_clause], [$.inline_elsif_clause]],
 
   rules: {
     source_file: $ => repeat($._statement),
@@ -20,21 +20,21 @@ module.exports = grammar({
       repeat($._statement),
       repeat($.elsif_clause),
       optional($.else_clause),
-      $.end_directive
+      optional($.end_directive)
     ),
-    foreach_block: $ => seq($.foreach_directive, repeat($._statement), $.end_directive),
-    filter_block: $ => seq($.filter_start_directive, repeat($._statement), $.end_directive),
-    switch_block: $ => seq($.switch_directive, repeat($.case_clause), optional($.default_clause), $.end_directive),
+    foreach_block: $ => seq($.foreach_directive, repeat($._statement), optional($.end_directive)),
+    filter_block: $ => seq($.filter_start_directive, repeat($._statement), optional($.end_directive)),
+    switch_block: $ => seq($.switch_directive, repeat($.case_clause), optional($.default_clause), optional($.end_directive)),
     switch_directive: $ => seq($.directive_open, 'SWITCH', $._value_expression, $.directive_close),
     case_clause: $ => seq($.case_directive, repeat($._statement)),
     case_directive: $ => seq($.directive_open, 'CASE', $._value_expression, $.directive_close),
     default_clause: $ => seq($.default_directive, repeat($._statement)),
     default_directive: $ => seq($.directive_open, 'DEFAULT', $.directive_close),
-    while_block: $ => seq($.while_directive, repeat($._statement), $.end_directive),
+    while_block: $ => seq($.while_directive, repeat($._statement), optional($.end_directive)),
     while_directive: $ => seq($.directive_open, 'WHILE', $._value_expression, $.directive_close),
-    block_block: $ => seq($.block_directive, repeat($._statement), $.end_directive),
+    block_block: $ => seq($.block_directive, repeat($._statement), optional($.end_directive)),
     block_directive: $ => seq($.directive_open, 'BLOCK', $.identifier, $.directive_close),
-    try_block: $ => seq($.try_directive, repeat($._statement), repeat($.catch_clause), $.end_directive),
+    try_block: $ => seq($.try_directive, repeat($._statement), repeat($.catch_clause), optional($.end_directive)),
     try_directive: $ => seq($.directive_open, 'TRY', $.directive_close),
     catch_clause: $ => seq($.catch_directive, repeat($._statement)),
     catch_directive: $ => seq($.directive_open, 'CATCH', optional($.identifier), $.directive_close),
@@ -70,8 +70,22 @@ module.exports = grammar({
       repeat(seq(';', $._directive_statement)),
       ';', 'END'
     ),
+    inline_switch: $ => seq(
+      'SWITCH', $._value_expression,
+      repeat(seq(';', $.inline_case)),
+      optional(seq(';', $.inline_default)),
+      ';', 'END'
+    ),
+    inline_case: $ => seq(
+      'CASE', $._value_expression,
+      repeat(seq(';', $._directive_statement))
+    ),
+    inline_default: $ => seq(
+      'CASE', 'DEFAULT',
+      repeat(seq(';', $._directive_statement))
+    ),
     _statement_list: $ => seq($._directive_statement, repeat(seq(optional(';'), $._directive_statement)), optional(';')),
-    _directive_statement: $ => choice($.command_expression, $.assignment_expression, $.comment, $.inline_conditional, $.inline_foreach, $._value_expression),
+    _directive_statement: $ => choice($.command_expression, $.assignment_expression, $.comment, $.inline_conditional, $.inline_foreach, $.inline_switch, $._value_expression),
     _value_expression: $ => choice(
       $.unary_expression,
       $.ternary_expression,
