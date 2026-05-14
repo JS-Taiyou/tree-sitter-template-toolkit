@@ -25,6 +25,10 @@
           "named": true
         },
         {
+          "type": "named_argument",
+          "named": true
+        },
+        {
           "type": "primary_expression",
           "named": true
         },

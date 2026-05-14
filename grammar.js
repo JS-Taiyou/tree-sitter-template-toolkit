@@ -81,7 +81,7 @@ module.exports = grammar({
       field('function', $.primary_expression),
       field('arguments', $.argument_list)
     )),
-    argument_list: $ => seq('(', optional(seq($._value_expression, repeat(seq(',', $._value_expression)))), ')'),
+    argument_list: $ => seq('(', optional(seq(choice($._value_expression, $.named_argument), repeat(seq(',', choice($._value_expression, $.named_argument))))), ')'),
     ternary_expression: $ => prec.right(-1, seq(
       field('condition', $._value_expression), '?',
       field('if_true', $._value_expression), ':',
